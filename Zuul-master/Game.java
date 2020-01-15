@@ -51,6 +51,7 @@ public class Game
         currentRoom = outside;  // start game outside
         
         inventory.add(new Item("computer"));
+        office.setItem(new Item("Robot"));
     }
 
     /**
