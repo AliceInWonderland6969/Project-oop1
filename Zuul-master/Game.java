@@ -123,7 +123,12 @@ public class Game
         else if (commandWord.equals("inventory")) {
             printInventory();
         }
-
+        else if (commandWord.equals("get")) {
+            getItem(command);
+        }
+        else if (commandWord.equals("drop")) {
+            dropItem(command);
+        }
         return wantToQuit;
     }
     private void printInventory()
@@ -131,11 +136,64 @@ public class Game
         String output = "";
         for (int i = 0; i < inventory.size(); i++)
         {
-            output += inventory.get(i).getDescription() + "";
+            output += inventory.get(i).getDescription() + " ";
         }
-        System.out.println("You are carrying:");
+        System.out.println("You are carrying: ");
         System.out.println(output);
     }
+    private void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("drop what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = null;
+        int index = 0;
+        for (int i = 0; i <inventory.size(); i++)
+            {
+                if(inventory.get(i).getDescription().equals(item)) 
+                {
+                    newItem = inventory.get(i); 
+                    index = i;
+                } 
+            }
+        if (newItem == null) {
+            System.out.println("That item is not in your inventory");
+        }
+        else {
+            inventory.remove(index);
+            currentRoom.setItem(new Item(item));
+            System.out.println("Dropped " + item);
+        }
+    }
+    private void getItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Get what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = currentRoom.getItem(item);
+
+        if (newItem == null) {
+            System.out.println("That item is not here!");
+        }
+        else {
+            inventory.add(newItem);
+            currentRoom.removeItem(item);
+            System.out.println("Picked up " + item);
+        }
+    }
+    
     // implementations of user commands:
 
     /**

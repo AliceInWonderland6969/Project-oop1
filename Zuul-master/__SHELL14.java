@@ -1,5 +1,5 @@
 
-public class __SHELL7 extends bluej.runtime.Shell {
+public class __SHELL14 extends bluej.runtime.Shell {
 public static void run() throws Throwable {
 final bluej.runtime.BJMap __bluej_runtime_scope = getScope("C:\\projectoop1\\Zuul-master");
 final Game game1 = (Game)__bluej_runtime_scope.get("game1");
