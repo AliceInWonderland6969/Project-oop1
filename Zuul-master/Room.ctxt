@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=description
+comment0.target=Room(java.lang.String)
+comment0.text=\r\n\ Create\ a\ room\ described\ "description".\ Initially,\ it\ has\r\n\ no\ exits.\ "description"\ is\ something\ like\ "a\ kitchen"\ or\r\n\ "an\ open\ court\ yard".\r\n\ @param\ description\ The\ room's\ description.\r\n
+comment1.params=direction\ neighbor
+comment1.target=void\ setExit(java.lang.String,\ Room)
+comment1.text=\r\n\ Define\ the\ exits\ of\ this\ room.\ \ Every\ direction\ either\ leads\r\n\ to\ another\ room\ or\ is\ null\ (no\ exit\ there).\r\n\ @param\ north\ The\ north\ exit.\r\n\ @param\ east\ The\ east\ east.\r\n\ @param\ south\ The\ south\ exit.\r\n\ @param\ west\ The\ west\ exit.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getShortDescription()
+comment2.text=\r\n\ @return\ The\ description\ of\ the\ room.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getLongDescription()
+comment4.params=direction
+comment4.target=Room\ getExit(java.lang.String)
+comment5.params=
+comment5.target=java.lang.String\ getExitString()
+comment5.text=\ \r\n\ Retourneer\ een\ string\ met\ daarin\ de\ uitgangen\ van\ de\ ruimte,\ bijvoorbeeld\ \r\n\ "exits\:\ north\ west".\ @return\ een\ omschrijving\ van\ de\ aanwezige\ uitgangen\ \r\n\ in\ de\ ruimte.\r\n
+numComments=6
