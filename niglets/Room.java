@@ -26,9 +26,21 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room GetExit(String description) 
     {
-        this.description = description;
+        if (direction.equals("north")) {
+         return northExit;   
+        }
+        if (direction.equals("east")) {
+         return eastExit;   
+        }
+        if (direction.equals("south")) {
+         return southExit;   
+        }
+        if (direction.equals("west")) {
+         return westExit;   
+        }
+        return null;
     }
 
     /**
