@@ -6,6 +6,7 @@ public class Game
     private Room currentRoom;
     private Stack<Room> roomHistory;    
     private Room previousRoom;
+    ArrayList<Item> inventory = new ArrayList<Item>();
     /**
      * Create the game and initialise its internal map.
      */
@@ -48,6 +49,8 @@ public class Game
         cellar.setExit("up", office);
         previousRoom = outside;
         currentRoom = outside;  // start game outside
+        
+        inventory.add(new Item("computer"));
     }
 
     /**
@@ -116,10 +119,22 @@ public class Game
         else if (commandWord.equals("back")) {
             goBack();
         }
+        else if (commandWord.equals("inventory")) {
+            printInventory();
+        }
 
         return wantToQuit;
     }
-
+    private void printInventory()
+    {
+        String output = "";
+        for (int i = 0; i < inventory.size(); i++)
+        {
+            output += inventory.get(i).getDescription() + "";
+        }
+        System.out.println("You are carrying:");
+        System.out.println(output);
+    }
     // implementations of user commands:
 
     /**
