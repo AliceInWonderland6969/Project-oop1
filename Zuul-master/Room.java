@@ -68,11 +68,14 @@ public class Room
     public String getExitString()
     {
         String returnString = "Exits:";
+        String returnItems = "Items in the room:";
         Set<String> keys = exits.keySet();
           for(String exit : keys) {
             returnString += " " + exit;
           }
-            returnString += getRoomItems();
+          if(true) {
+            returnItems += " " + getRoomItems();
+          }   
         return returnString;
     }
     public Item getItem(int index)
