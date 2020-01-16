@@ -72,7 +72,7 @@ public class Room
         for(String exit : keys) {
             returnString += " " + exit;
         }
-        if(true) {
+        if(getRoomItems() != null) {
             returnString += "\nItems in the room: " + getRoomItems();
         }
         return returnString;
@@ -110,10 +110,10 @@ public class Room
     }
     public String getRoomItems()
     {
-        String output = "";
+        String output = null;
         for (int i = 0; i <items.size(); i++)
         {
-            output += items.get(i).getDescription() + "";
+            output = items.get(i).getDescription() + "";
         }
         return output;
     }
