@@ -68,24 +68,21 @@ public class Room
     public String getExitString()
     {
         String returnString = "Exits:";
-        String returnItems = "Items in the room:";
         Set<String> keys = exits.keySet();
-          for(String exit : keys) {
+        for(String exit : keys) {
             returnString += " " + exit;
-          }
-<<<<<<< HEAD
-            returnString += " " + getRoomItems();
-=======
-          if(true) {
-            returnItems += " " + getRoomItems();
-          }   
->>>>>>> 9491ccd80ec6bc123e7e348263d248ed2f4a09d3
+        }
+        if(true) {
+            returnString += "\nItems in the room: " + getRoomItems();
+        }
         return returnString;
     }
+    
     public Item getItem(int index)
     {
         return items.get(index);
     }
+    
     public Item getItem(String itemName)
     {
             for (int i = 0; i <items.size(); i++)
