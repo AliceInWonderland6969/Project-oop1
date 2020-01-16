@@ -1,0 +1,23 @@
+GEBRUIKERSHANDLEIDING ...
+
+Movement:
+Bij opstarten van het spel begint u in de Main Enterance van de University. Bewegen in de map gaat als volgt:
+U typt eerst "go" en daarachter waar u naartoe wilt, hierbij moet u kiezen tussen de richtingen die aan u worden voorgesteld.
+Bijvoorbeeld: "go east". 
+Wanneer u een verdieping omhoog of omlaag kan zal de game dit aangeven en kunt u daar gebruik van maken 
+door "go up" of "go down" in te typen.
+Wanneer u terug wilt naar de vorige room kunt u het commando "back" gebruiken. Dit brengt u terug naar waar u daarvoor was.
+Met het commando "look" kunt u weer zien waar u bent en waar u naartoe kan gaan.
+
+
+Items oppakken:
+Wanneer er een item in een room is zal dat aangegeven worden. Deze kunt u als volgt oppakken met het commando "get (naam van het item)".
+Bijvoorbeeld: "get computer".
+De inventory kan bekeken worden het commando "inventory".
+Items kun je neerleggen met het commando "drop (naam van het item)".
+
+
+Help:
+Wanneer u alle commando's nog een keer wilt zien kunt u in het spel het commando "help" gebruiken om nog eens 
+een lijst met alle commando's te krijgen.
+
