@@ -3,10 +3,15 @@ import java.util.*;
 public class Game 
 {
     private Parser parser;
+    private static Player player;
     private Room currentRoom;
     private Stack<Room> roomHistory;    
     private Room previousRoom;
     ArrayList<Item> inventory = new ArrayList<Item>();
+    private static final int NB_ROOM_TELEPORT = 8;
+    
+    private static ArrayList<Room> rooms;
+    private static Room randomRoom;
     /**
      * Create the game and initialise its internal map.
      */
@@ -25,12 +30,12 @@ public class Game
         Room outside, theater, pub, lab, office, cellar;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        cellar = new Room("in the cellar");
+        outside = new Room("outside the main entrance of the university", Type.OUTSIDE);
+        theater = new Room("in a lecture theater", Type.THEATER);
+        pub = new Room("in the campus pub", Type.PUB);
+        lab = new Room("in a computing lab", Type.LAB);
+        office = new Room("in the computing admin office", Type.OFFICE);
+        cellar = new Room("in the cellar", Type.CELLAR);
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
@@ -86,7 +91,7 @@ public class Game
         System.out.print(currentRoom.getExitString());
         System.out.println();
     }
-
+    
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
@@ -236,7 +241,31 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
-    
+    public static void goRandomRoom(){
+
+        int random = (int)(Math.random() * NB_ROOM_TELEPORT);
+        // Select a random room
+        Type teleport = Type.values()[random];
+        for(Room r : rooms){
+            if(r.getType().equals(teleport)){
+                getPlayer().setCurrentRoom(r);
+            }
+        }
+        System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
+        System.out.println(getPlayer().getCurrentRoom().getLongDescription()); 
+    }
+    public static ArrayList<Room> getRooms() {
+        return rooms;
+    }
+     public static Room getRandomRoom() {
+        return randomRoom;
+    }
+    /**
+     * @param randomRoom the randomRoom to set
+     */
+    public static void setRandomRoom(Room random) {
+        randomRoom = random;
+    }
                 /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
@@ -271,5 +300,13 @@ public class Game
             currentRoom = roomHistory.pop();
             System.out.println(currentRoom.getLongDescription());
         }
+    }
+    public static Player getPlayer() 
+    {
+     return player;   
+    }
+    public static void setPlayer( Player player) 
+    {
+        Game.player = player;
     }
 }

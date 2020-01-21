@@ -1,0 +1,97 @@
+import java.util.HashMap;
+
+/**
+ * This class represents players in the game. 
+ * Each player has a current location.
+ * Externalisation of the current room 
+ * 
+ * @author Alexandre Boursier & Nolan Potier
+ * @version 2011.10.24
+ */
+public class Player
+{
+    private Room currentRoom;
+    private HashMap<String, Item> items;
+
+    /**
+     * Constructor for objects of class Player
+     */
+    public Player()
+    {
+        currentRoom = null;
+        items = new HashMap<String, Item>();
+    }
+
+    /**
+     * Return the current room for this player.
+     */
+    public Room getCurrentRoom()
+    {
+        return currentRoom;
+    }
+
+    /**
+     * Set the current room for this player.
+     */
+    public void setCurrentRoom(Room room)
+    {
+        currentRoom = room;
+    }
+
+    /**
+     * Try to go to one direction. If there is an exit, enter the new room,
+     * otherwise print an error message.
+     * 
+     * New form of time limit : Each time a player uses the command "GO" 
+     * with a good given direction (ex : go east), it is counted as a move
+     * 
+     * All cases are checked in order to prevent the player from going outside without
+     * the key, or without having opened the door, etc.
+     * 
+     * If the number of moves equals to the limit number of moves,
+     *  the player loses the game.
+     *  
+     */
+    public boolean goRoom(String direction) 
+    {
+
+            // Try to leave current room.
+            Room nextRoom = currentRoom.getExit(direction); 
+            setCurrentRoom(nextRoom);
+            //Check that is randomRoom
+            //
+            if(currentRoom.equals(Game.getRandomRoom())) {
+                Game.goRandomRoom();
+            }
+
+            // Check if the player is in the trap room and if he has already been there
+            // Yes : the game continues normally
+            // No  : he falls into the trap
+            if (!Trap.Is_catched_by_trap() && currentRoom.getType().equals(Trap.getChosen_trap().getType()))
+            {
+                System.out.println();
+                System.out.println("----You travel through the portal and are now in a new room -----------");
+                System.out.println();
+
+                for(Room r : Game.getRooms()){
+                    if(r.getType().equals(Type.CELLAR)){
+                        setCurrentRoom(r);
+                    }
+                }       
+                Trap.setIs_catched_by_trap(true);
+            }
+
+            // Check if the nextroom is the final exit
+            if (currentRoom.getType().equals(Type.OUTSIDE)) {
+                System.out.println("The outside checkpoint has been reached ! ");
+                System.out.println("You have won the game, well done Indiana ;)");
+                System.out.println();
+                System.out.println();
+                return true;
+            }
+            System.out.println(currentRoom.getLongDescription());
+        
+            return true;
+    }
+
+}

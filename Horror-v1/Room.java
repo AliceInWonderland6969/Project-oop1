@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class Room 
 {
+    private Type nom;
     private String description;
     private HashMap<String, Room> exits;
     ArrayList<Item> items = new ArrayList<Item>();
@@ -26,8 +27,9 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room (String description) 
+    public Room (String description, Type type) 
     {
+        this.nom = type;
         this.description = description;
         exits = new HashMap<String, Room>();
     }
@@ -77,7 +79,9 @@ public class Room
         }
         return returnString;
     }
-    
+    public Type getType() {
+        return nom;
+    }
     public Item getItem(int index)
     {
         return items.get(index);
