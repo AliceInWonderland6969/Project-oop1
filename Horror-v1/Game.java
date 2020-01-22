@@ -27,7 +27,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office, cellar;
+        Room outside, theater, pub, lab, office, cellar, teleport;
       
         // create the rooms
         outside = new Room("outside the main entrance of the university", Type.OUTSIDE);
@@ -36,6 +36,7 @@ public class Game
         lab = new Room("in a computing lab", Type.LAB);
         office = new Room("in the computing admin office", Type.OFFICE);
         cellar = new Room("in the cellar", Type.CELLAR);
+        teleport = new Room("in the cellar", Type.TELEPORT);
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
@@ -50,6 +51,7 @@ public class Game
         
         office.setExit("west", lab);
         office.setExit("down", cellar);
+        office.setExit("down", teleport);
         
         cellar.setExit("up", office);
         previousRoom = outside;

@@ -7,5 +7,5 @@
  */
 public enum Type {
     // One of the first SIX ELEMENTS is randomly chosen to be a trap door
-    OUTSIDE, THEATER, PUB, LAB, OFFICE, CELLAR;
+    OUTSIDE, THEATER, PUB, LAB, OFFICE, CELLAR, TELEPORT;
 }
