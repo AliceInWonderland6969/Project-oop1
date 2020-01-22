@@ -75,6 +75,12 @@ public class Game {
         setRoomsDoors();
         new Trap();
     }
+    
+    public static void main(String[] args)
+    {
+        Game startGame = new Game();
+        startGame.play();
+    }
 
     /**
      * Create all the rooms and link their exits together.
