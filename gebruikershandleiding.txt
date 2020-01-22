@@ -1,4 +1,4 @@
-GEBRUIKERSHANDLEIDING ...
+GEBRUIKERSHANDLEIDING Horror V1
 
 Movement:
 Bij opstarten van het spel begint u in de Main Enterance van de University. Bewegen in de map gaat als volgt:
