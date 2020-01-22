@@ -19,22 +19,37 @@
  * @version 2011.10.28
  */
 
-public abstract class Command {
+public class Command
+{
+    private String commandWord;
     private String secondWord;
 
     /**
-     * Create a command object. 
-     * 
-     * The command word should be null to tell the command is UNKNOWN
+     * Create a command object. First and second word must be supplied, but
+     * either one (or both) can be null.
+     * @param firstWord The first word of the command. Null if the command
+     *                  was not recognised.
+     * @param secondWord The second word of the command.
      */
-    public Command()
+    public Command(String firstWord, String secondWord)
     {
-        secondWord = null;
+        commandWord = firstWord;
+        this.secondWord = secondWord;
     }
 
     /**
-     * Return the second word of this command. If no
-     * second word was entered, the result is null.
+     * Return the command word (the first word) of this command. If the
+     * command was not understood, the result is null.
+     * @return The command word.
+     */
+    public String getCommandWord()
+    {
+        return commandWord;
+    }
+
+    /**
+     * @return The second word of this command. Returns null if there was no
+     * second word.
      */
     public String getSecondWord()
     {
@@ -42,27 +57,18 @@ public abstract class Command {
     }
 
     /**
-     * Check whether a second word was entered for this 
-     * command.
+     * @return true if this command was not understood.
+     */
+    public boolean isUnknown()
+    {
+        return (commandWord == null);
+    }
+
+    /**
+     * @return true if the command has a second word.
      */
     public boolean hasSecondWord()
     {
-        return secondWord != null;
+        return (secondWord != null);
     }
-
-    /**
-     * Define the second word of thie command
-     */
-    public void setSecondWord(String secondWord)
-    {
-        this.secondWord = secondWord;
-    }
-
-    /**
-     * Execute the current command. 
-     * A flag is returned indicating :
-     *  
-     * @return True, if game should exit; false otherwise.
-     */
-    public abstract boolean execute(Player player);
 }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class is the main class of the "Zuul" application.
@@ -38,8 +39,10 @@ public class Game {
     // Build a list which contains all the current rooms of the game
     private static ArrayList<Room> rooms;
     
-    private Room currentRoom;    
+    private Room currentRoom; 
+    private Stack<Room> roomHistory; 
     private Room previousRoom;
+    ArrayList<Item> inventory = new ArrayList<Item>();
     private static Room randomRoom;
     private static Room beamerRoom;
     private HashMap<String, Item> items;
@@ -63,14 +66,13 @@ public class Game {
         rooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();  
         doors = new ArrayList<Door>();
+        roomHistory = new Stack<Room>();
         numberOfMoves = 0;
 
-        createItems();
         createDoors();        
         setPlayer(new Player());
         createRooms();
         setRoomsDoors();
-        addItemsToRooms();
         new Trap();
     }
 
@@ -96,15 +98,6 @@ public class Game {
         getPlayer().setCurrentRoom(outside); 
         beamerRoom = teleporter;
         randomRoom = theater;
-    }
-    
-    /**
-     * Initialise items
-     */
-    private void createItems() {
-        Item key;
-        key = new Item("Key", "This key can open a door...");
-        items.put(key.getName().toLowerCase(), key);
     }
 
     /**
@@ -167,13 +160,6 @@ public class Game {
     }
 
     /**
-     * Add items to the rooms
-     */
-    private void addItemsToRooms(){
-        office.addItem(items.get("key"));
-    }
-
-    /**
      * Adding a room to the dictionary
      * @param r
      */
@@ -192,14 +178,11 @@ public class Game {
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
         boolean finished = false;
-        while(! finished) {
+        while (! finished) {
             Command command = parser.getCommand();
-            if(command == null) {
-                System.out.println("I don't understand...");
-            } else {
-                finished = command.execute(getPlayer());
-            }
+            finished = processCommand(command);
         }
+        System.out.println("Thank you for playing.  Good bye.");
     }
 
     /**
@@ -221,7 +204,202 @@ public class Game {
         // Instantiate a parser which will read the command words
         parser = new Parser();
     }
+    private boolean processCommand(Command command) 
+    {
+        boolean wantToQuit = false;
 
+        if(command.isUnknown()) {
+            System.out.println("I don't know what you mean...");
+            return false;
+        }
+
+        String commandWord = command.getCommandWord();
+        if (commandWord.equals("help")) {
+            printHelp();
+        }
+        else if (commandWord.equals("go")) {
+            goRoom(command);
+        }
+        else if (commandWord.equals("look")){
+            look() ;
+        }
+         else if (commandWord.equals("splash")) {
+            splash();
+        }
+        else if (commandWord.equals("quit")) {
+            wantToQuit = quit(command);
+        }
+        else if (commandWord.equals("back")) {
+            goBack();
+        }
+        else if (commandWord.equals("inventory")) {
+            printInventory();
+        }
+        else if (commandWord.equals("get")) {
+            getItem(command);
+        }
+        else if (commandWord.equals("drop")) {
+            dropItem(command);
+        }
+        return wantToQuit;
+    }
+    private void printHelp() 
+    {
+        System.out.println("You are lost. You are alone. You wander");
+        System.out.println("around at the university.");
+        System.out.println();
+        System.out.println("Your command words are:" );
+        System.out.println("go, quit, help, look, splash, back, inventory, get, drop");
+    }
+    private void splash()
+    {
+        System.out.println("It's not very effective....");
+    }
+    private void printInventory()
+    {
+        String output = "";
+        for (int i = 0; i < inventory.size(); i++)
+        {
+            output += inventory.get(i).getDescription() + "\n";
+        }
+        System.out.println("You are carrying: ");
+        System.out.println(output);
+    }
+    private void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("drop what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = null;
+        int index = 0;
+        for (int i = 0; i <inventory.size(); i++)
+            {
+                if(inventory.get(i).getDescription().equals(item)) 
+                {
+                    newItem = inventory.get(i); 
+                    index = i;
+                } 
+            }
+        if (newItem == null) {
+            System.out.println("That item is not in your inventory");
+        }
+        else {
+            inventory.remove(index);
+            currentRoom.setItem(new Item(item));
+            System.out.println("Dropped " + item);
+        }
+    }
+    private void getItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Get what?");
+            return;
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = currentRoom.getItem(item);
+
+        if (newItem == null) {
+            System.out.println("That item is not here!");
+        }
+        else {
+            inventory.add(newItem);
+            currentRoom.removeItem(item);
+            System.out.println("Picked up " + item);
+        }
+    }
+    
+    // implementations of user commands:
+
+
+    /** 
+     * Try to go in one direction. If there is an exit, enter
+     * the new room, otherwise print an error message.
+     */
+    private void goRoom(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Go where?");
+            return;
+        }
+
+        String direction = command.getSecondWord();
+
+        // Try to leave current room.
+        Room nextRoom = currentRoom.getExit();
+
+        if (nextRoom == null) {
+            System.out.println("There is no door!");
+        }
+        else {
+            roomHistory.push(currentRoom);
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getLongDescription());
+        }
+    }
+    public static void goRandomRoom(){
+
+        int random = (int)(Math.random() * NB_ROOM_TELEPORT);
+        // Select a random room
+        Type teleport = Type.values()[random];
+        for(Room r : rooms){
+            if(r.getType().equals(teleport)){
+                getPlayer().setCurrentRoom(r);
+            }
+        }
+        System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
+        System.out.println(getPlayer().getCurrentRoom().getLongDescription()); 
+    }
+    public static ArrayList<Room> getRooms() {
+        return rooms;
+    }
+     public static Room getRandomRoom() {
+        return randomRoom;
+    }
+    /**
+     * @param randomRoom the randomRoom to set
+     */
+    public static void setRandomRoom(Room random) {
+        randomRoom = random;
+    }
+                /** 
+     * "Quit" was entered. Check the rest of the command to see
+     * whether we really quit the game.
+     * @return true, if this command quits the game, false otherwise.
+     */
+    private boolean quit(Command command)     {
+        if(command.hasSecondWord()) {
+            System.out.println("Quit what?");
+            return false;
+        }
+        else {
+            return true;  // signal that we want to quit
+        }
+    }
+    private void look()
+    {
+        System.out.println(currentRoom.getLongDescription());
+        
+    }
+    private void goBack()
+    { 
+        if (roomHistory.empty())
+        {   System.out.println("U kunt niet verder terug dan uw beginpunt.");
+        } else {
+            currentRoom = roomHistory.pop();
+            System.out.println(currentRoom.getLongDescription());
+        }
+    }
     /**
      * Choosing the level of the game :
      * - Easy is for beginners 
@@ -287,23 +465,6 @@ public class Game {
     }
 
     /**
-     * Randomly transported into one of the other rooms.
-     */
-    public static void goRandomRoom(){
-
-        int random = (int)(Math.random() * NB_ROOM_TELEPORT);
-        // Select a random room
-        Type teleport = Type.values()[random];
-        for(Room r : rooms){
-            if(r.getType().equals(teleport)){
-                getPlayer().setCurrentRoom(r);
-            }
-        }
-        System.out.println("\n ------- You are teleported to a random room. -------\n");
-        System.out.println(getPlayer().getCurrentRoom().getLongDescription()); 
-    }
-
-    /**
      * @return the numberOfMoves
      */
     public int getNumberOfMoves() {
@@ -318,31 +479,10 @@ public class Game {
     }
 
     /**
-     * @return the rooms
-     */
-    public static ArrayList<Room> getRooms() {
-        return rooms;
-    }
-
-    /**
      * @param limitOfMoves the limitOfMoves to set
      */
     public void setLimitOfMoves(int lom) {
         limitOfMoves = lom;
-    }
-
-    /**
-     * @return the randomRoom
-     */
-    public static Room getRandomRoom() {
-        return randomRoom;
-    }
-
-    /**
-     * @param randomRoom the randomRoom to set
-     */
-    public static void setRandomRoom(Room random) {
-        randomRoom = random;
     }
 
     /**

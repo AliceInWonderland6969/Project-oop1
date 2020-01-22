@@ -13,42 +13,45 @@ import java.util.HashMap;
  * @version 2011.10.28
  */
 
-public class CommandWords {
-    // A mapping between a command word and the CommandWord
-    // associated with it.
-    private HashMap<String, Command> commands;
+public class CommandWords
+{
+    // a constant array that holds all valid command words
+    private static final String[] validCommands = {
+        "go", "quit", "help", "look" , "splash", "back", "inventory", "get",
+        "drop"
+    };
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        commands = new HashMap<String, Command>();
-        commands.put("go", new GoCommand());
-        commands.put("help", new HelpCommand(this));
-        commands.put("quit", new QuitCommand());
-        commands.put("take", new TakeCommand());
-        commands.put("use", new UseCommand());
-        commands.put("beamer", new BeamerCommand());
+        // nothing to do at the moment...
     }
 
     /**
-     * Given a command word, find and return the matching command object.
-     * Return null if there is no command with the given name
+     * Check whether a given String is a valid command word. 
+     * @return true if a given string is a valid command,
+     * false if it isn't.
      */
-    public Command get(String word)
+    public boolean isCommand(String aString)
     {
-        return commands.get(word);
-    }
-
-    /**
-     * Print all valid commands 
-     */
-    public void showAll() 
-    {
-        for (Object element : commands.keySet()) {
-            System.out.print(element + " - ");
+        for(int i = 0; i < validCommands.length; i++) {
+            if(validCommands[i].equals(aString))
+                return true;
         }
-        System.out.println();
+        // if we get here, the string was not found in the commands
+        return false;
+    }
+    /** Druk alle geldige opdrachten af naar System.out.
+     * 
+     */
+    public String showAll()
+    {
+        String commandString = "";
+        for(String command : validCommands){
+            commandString += (command);
+        }
+        return commandString;
     }
 }

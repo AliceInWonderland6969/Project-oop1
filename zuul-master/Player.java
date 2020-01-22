@@ -116,29 +116,4 @@ public class Player
         return decision;
     }
 
-    /**
-     * @return the items
-     */
-    public HashMap<String, Item> getItems() 
-    {
-        return items;
-    }
-
-    /**
-     * @param items the items to set
-     */
-    public void setItems(HashMap<String, Item> items) 
-    {
-        this.items = items;
-    }
-    
-    /**
-     * Add a item to inventory of player.
-     * @param item
-     */
-    public void addItem(Item item) 
-    {
-        items.put(item.getName().toLowerCase(), item);
-    }
-
 }
