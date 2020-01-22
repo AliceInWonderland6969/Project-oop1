@@ -1,0 +1,6 @@
+Project:         Zuul
+Titel:           Horror v1
+Auteur:          Auteur 1 / studentnummer <m.m.van.dammen@st.hanze.nl>
+                 Auteur 2 / studentnummer <q.s.m.ibrahim@st.hanze.nl>
+Uitbreidingen:   Trapdoor, Actors
+Datum:           20 januari 2020
