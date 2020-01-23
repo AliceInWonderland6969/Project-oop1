@@ -20,6 +20,7 @@ public class Game
         createRooms();
         parser = new Parser();
         roomHistory = new Stack<Room>();
+        
     }
 
     /**
@@ -59,6 +60,7 @@ public class Game
         
         inventory.add(new Item("computer"));
         office.setItem(new Item("Robot"));
+        randomRoom = theater;
     }
 
     /**
