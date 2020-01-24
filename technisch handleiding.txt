@@ -4,3 +4,18 @@ Auteur:          Auteur 1 / studentnummer: 404715  email: <m.m.van.dammen@st.han
                  Auteur 2 / studentnummer: 405621  email: <q.s.m.ibrahim@st.hanze.nl>
 Uitbreidingen:   Trapdoor, Actors
 Datum:           20 januari 2020
+
+
+Uitbereiding game
+Uitbereiding room
+Uitbereiding commandwords
+Uitbereiding commands
+Uitbereiding player
+Uitbereiding item
+Uitbereiding door
+Uitbereiding npc
+Uitbereiding exit
+
+bijzonderheden
+
+shortest path to exit / cheats

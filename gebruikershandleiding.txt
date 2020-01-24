@@ -1,5 +1,21 @@
 GEBRUIKERSHANDLEIDING Horror V1
 
+Verhaallijn:
+U wordt wakker bij de hoofdingang van een universiteit nadat u bewusteloos bent geweest, oorzaak hiervan is onbekend 
+maar u heeft een wond aan het hoofd. U bent omringt door hekken en uw enige weg vooruit is naar binnen. U begint bij 
+de hoofdingang in de universiteit. Het doel is om een andere uitgang te vinden in de universiteit. Deze uitgang zit echter op slot en
+u moet een sleutel vinden om de uitgang te kunnen openen. Hiervoor moet u items ruilen, die u in de map vindt, met twee andere
+karakters die te vinden zijn in de map. Hiervan heeft een de sleutel voor de uitgang en de andere het item wat u nodig heeft om te ruilen
+voor de sleutel. Voor de rest zitten er nog verrassingen in de map verstopt. Veel succes!
+
+
+LET OP!!! Het spel is hoofdlettergevoelig!
+
+Hieronder vindt u een uitleg over alle beschikbare commando's die u kunt gebruiken in de game.
+
+Algemeen: 
+U kunt de game afsluiten met het commando "quit".
+-------------------------------------------------------------------------------------------------------------------------------------------
 Movement:
 Bij opstarten van het spel begint u in de Main Enterance van de University. Bewegen in de map gaat als volgt:
 U typt eerst "go" en daarachter waar u naartoe wilt, hierbij moet u kiezen tussen de richtingen die aan u worden voorgesteld.
@@ -8,16 +24,25 @@ Wanneer u een verdieping omhoog of omlaag kan zal de game dit aangeven en kunt u
 door "go up" of "go down" in te typen.
 Wanneer u terug wilt naar de vorige room kunt u het commando "back" gebruiken. Dit brengt u terug naar waar u daarvoor was.
 Met het commando "look" kunt u weer zien waar u bent en waar u naartoe kan gaan.
-
-
-Items oppakken:
-Wanneer er een item in een room is zal dat aangegeven worden. Deze kunt u als volgt oppakken met het commando "get (naam van het item)".
-Bijvoorbeeld: "get computer".
-De inventory kan bekeken worden het commando "inventory".
+-------------------------------------------------------------------------------------------------------------------------------------------
+Items oppakken en traden met andere karakters:
+Uw inventory wordt weergegeven wanneer u een nieuwe kamer binnenkomt.
+Wanneer er een item in een room is zal dat aangegeven worden. Deze kunt u als volgt oppakken met het commando "take (naam van het item)".
+Bijvoorbeeld: "take computer".
 Items kun je neerleggen met het commando "drop (naam van het item)".
+Bijvoorbeeld: "drop computer".
+Als u uw inventory of de items in de room nog eens wilt bekijken kunt u het commando "look" gebruiken.
 
-
+U kunt traden met andere karakters met het commando "trade (naam van het item)". 
+Bijvoorbeeld: "trade gold";
+-------------------------------------------------------------------------------------------------------------------------------------------
+Doors:
+Als u een sleutel in uw inventory heeft kunt u deuren die op slot zitten openen.
+U kunt een deur van het slot halen met het commando "unlock",
+en u kunt de deur weer op slot doen met "lock".
+-------------------------------------------------------------------------------------------------------------------------------------------
 Help:
 Wanneer u alle commando's nog een keer wilt zien kunt u in het spel het commando "help" gebruiken om nog eens 
 een lijst met alle commando's te krijgen.
+
 
